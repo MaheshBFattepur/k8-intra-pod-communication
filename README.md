@@ -10,7 +10,7 @@ kubectl create -f manifests/service.yaml
 ```
 
 # Verify 
-1. kubectl get pods -o wide
+1. kubectl get pods
 ```
 
 NAME                                                READY   STATUS    RESTARTS   AGE
@@ -26,5 +26,5 @@ kubernetes                           ClusterIP   10.96.0.1       <none>        4
 3. Open browser and execute http://MASTER-IP:30030/sserver/sayhello
 ```
 O/P: 
-Connection established -> [Server: Start, Node: node1.com] Server says hello!!! -> [Server: End, Node: node2.com] Server acknowledge to hello!!! -> Connection closed
+Connection established -> [Server: Start, Node: node1.com] Server says hello!!! -> [Server: End, Node: node1.com] Server acknowledge to hello!!! -> Connection closed
 ```
