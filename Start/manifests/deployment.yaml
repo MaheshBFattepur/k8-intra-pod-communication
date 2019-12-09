@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind:       Deployment
+metadata:
+  name: k8-start-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8-start-service
+  template:
+    metadata:
+      labels:
+        app: k8-start-service
+    spec:
+      containers:
+        - name:  k8-start-service
+          image: fathepurm/k8-start-service:latest
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /sserver/is_ready
+              scheme: HTTP
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /sserver/is_alive
+              scheme: HTTP
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 15
+          env:
+          - name: MY_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName

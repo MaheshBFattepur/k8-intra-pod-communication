@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind:       Deployment
+metadata:
+  name: k8-end-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8-end-service
+  template:
+    metadata:
+      labels:
+        app: k8-end-service
+    spec:
+      containers:
+        - name:  k8-end-service
+          image: fathepurm/k8-end-service:latest
+          ports:
+            - containerPort: 9090
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /sserver/is_ready
+              scheme: HTTP
+              port: 9090
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /sserver/is_alive
+              scheme: HTTP
+              port: 9090
+            initialDelaySeconds: 15
+            periodSeconds: 15
+          env:
+          - name: MY_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
