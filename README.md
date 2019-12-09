@@ -2,20 +2,22 @@
 2 Spring boot applications communicate with localhost in same POD
 
 # Steps for execution
+```
 kubectl create -f manifest/deployment.yaml
+```
+```
 kubectl create -f manifests/service.yaml
+```
 
 # Verify 
-1.
+1. kubectl get pods -o wide
 ```
-kubectl get pods -o wide
 
 NAME                                                READY   STATUS    RESTARTS   AGE
 k8-intra-pod-communication-deploy-8bd968cd5-vtd4g   2/2     Running   0          19s
 ```
-2. 
+2. kubectl get svc
 ```
-kubectl get svc
 
 NAME                                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                         AGE
 k8-intra-pod-communication-service   NodePort    10.101.128.62   <none>        8080:30030/TCP,9090:30040/TCP   12m
